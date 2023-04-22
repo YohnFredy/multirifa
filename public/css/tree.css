@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.caja {
+    /* overflow-x: scroll;*/
+    overflow: auto;   
+    /* white-space: nowrap; */
+}
+
+.tree {
+    width: max-content;
+    overflow: auto;
+    padding: 10px;
+}
+
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+/*Usaré ::before y ::after para dibujar los conectores*/
+.tree li::before,
+.tree li::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 1px solid #2A7EE1;
+    width: 50%;
+    height: 20px;
+}
+
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 1px solid #2A7EE1;
+}
+
+/*Necesito eliminar los conectores derecho-izquierdo de los elemnetos sin ningún sibling*/
+.tree li:only-child::after,
+.tree li:only-child::before {
+    display: none;
+}
+
+/*Borro el espacio de arriba de los children únicos*/
+.tree li:only-child {
+    padding-top: 0;
+}
+
+/*Borro el conector izquierdo del primer child y el derecho del último child*/
+.tree li:first-child::before,
+.tree li:last-child::after {
+    border: 0 none;
+}
+
+/*Añado al final el conector vertical para los últimos nodos*/
+.tree li:last-child::before {
+    border-right: 1px solid #2A7EE1;
+    border-radius: 0 5px 0 0;
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+    -webkit-border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+}
+
+/*Agrego conectores debajo de los parents*/
+.tree ul ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #2A7EE1;
+    width: 0;
+    height: 20px;
+}
+
+
+.tree li a {
+
+    box-shadow: 5px 5px 10px #777777;
+    border-left: 6px solid #2A7EE1;
+    padding: 5px 10px;
+    background: #eee;
+    text-decoration: none;
+    background: #ffffff;
+    color: #2A7EE1;
+    font-family: arial, verdana, tahoma;
+    font-size: 12px;
+    display: inline-block;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.tree li a.small {
+    font-size: 10px;
+}
+
+
+/*Efectos flotantes*/
+/*Aplico el efecto flotante al descendientes del elemento también.*/
+.tree li a:hover,
+.tree li a:hover + ul li a {
+  
+    box-shadow: -5px -2px 10px #777777;
+    border-radius: 20px;
+    background: #ffffff;
+    color: #0D4C94;
+    border-left: 6px solid #0D4C94;
+}
+
+/*Estilos de conector para los flotantes*/
+.tree li a:hover + ul li::after,
+.tree li a:hover + ul li::before,
+.tree li a:hover + ul::before,
+.tree li a:hover + ul ul::before {
+    border-color: #0D4C94;
+}
